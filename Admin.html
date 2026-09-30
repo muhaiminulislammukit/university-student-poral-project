@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSC 114 - University Admin Panel & System Control</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-pill {
+      background: #4338ca;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-badge" style="background: linear-gradient(135deg, #4338ca, #3b82f6);">ADM</div>
+        <div class="brand-info">
+          <h3>CSC 114 Admin</h3>
+          <span>Department Control</span>
+        </div>
+      </div>
+
+      <div class="nav-section-title">Administrative Modules</div>
+      <nav class="nav-links">
+        <a href="Index.html" class="nav-btn">
+          <span>🏠 Unified Master Portal</span>
+        </a>
+        <button class="nav-btn active" onclick="showAdminSection('overview')">
+          <span>📊 Admin Overview</span>
+        </button>
+        <button class="nav-btn" onclick="showAdminSection('students')">
+          <span>👥 Student Management</span>
+        </button>
+        <button class="nav-btn" onclick="showAdminSection('courses')">
+          <span>📚 Course Curriculum</span>
+        </button>
+        <button class="nav-btn" onclick="showAdminSection('database')">
+          <span>🗄️ MySQL Database Engine</span>
+        </button>
+        <a href="Student.html" class="nav-btn">
+          <span>🎓 Student Portal View</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-snippet">
+          <div class="user-avatar" style="background: #4338ca;">A</div>
+          <div class="user-details">
+            <b>Dr. M. Rahman</b>
+            <span>Head of Dept</span>
+          </div>
+        </div>
+        <a href="Index.html" class="logout-icon-btn" title="Back to Portal">↗️</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title">
+            <h1>Department Administration & Database Panel</h1>
+            <p>Direct Batch Management & Data Governance</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <span class="admin-pill">ADMINISTRATOR</span>
+          <button class="btn btn-primary btn-sm" onclick="downloadLiveMySQLDump()">💾 Export MySQL Dump</button>
+          <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()">🌓</button>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <!-- Overview -->
+        <div id="admin-sec-overview">
+          <div class="welcome-banner" style="background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca);">
+            <div>
+              <span class="banner-badge">Department Administrative Console</span>
+              <h2>CSC 114 Academic Operations</h2>
+              <p>Monitor batch performance, manage student enrollment rosters, course allocations, and synchronize MySQL relational tables.</p>
+            </div>
+            <div class="banner-actions">
+              <a href="Index.html" class="btn btn-white">Open Live Portal →</a>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-info">
+                <span>Enrolled Batch Students</span>
+                <h3 id="admStatStudents">6</h3>
+                <span class="stat-trend up">Active in LocalStorage</span>
+              </div>
+              <div class="stat-icon-box indigo">👥</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <span>Offered Courses</span>
+                <h3 id="admStatCourses">5</h3>
+                <span class="stat-trend up">Semester Active</span>
+              </div>
+              <div class="stat-icon-box sky">📚</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <span>Attendance Log Sessions</span>
+                <h3 id="admStatAttendance">4</h3>
+                <span class="stat-trend up">Audited</span>
+              </div>
+              <div class="stat-icon-box emerald">📅</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-info">
+                <span>Published Notices</span>
+                <h3 id="admStatNotices">4</h3>
+                <span class="stat-trend up">Circulars</span>
+              </div>
+              <div class="stat-icon-box amber">📢</div>
+            </div>
+          </div>
+
+          <!-- Quick Controls -->
+          <div class="card">
+            <div class="card-header">
+              <h3>System Utilities & Live Data Operations</h3>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="downloadLiveMySQLDump()">📥 Download Full MySQL Script (.sql)</button>
+              <button class="btn btn-outline" onclick="exportStudentsCSV()">📊 Export All Students (CSV)</button>
+              <button class="btn btn-outline" onclick="exportCompleteJSON()">📦 Backup Database (JSON)</button>
+              <button class="btn btn-danger" onclick="handleResetDatabase()">🔄 Factory Reset Demo Data</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Student Records in Memory</h3>
+              <a href="Index.html" class="btn btn-outline btn-sm">Full CRUD in Main Portal →</a>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Section</th>
+                    <th>Attendance</th>
+                    <th>CGPA</th>
+                  </tr>
+                </thead>
+                <tbody id="admRecentStudentsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const db = getDB();
+      document.getElementById("admStatStudents").textContent = (db.students || []).length;
+      document.getElementById("admStatCourses").textContent = (db.courses || []).length;
+      document.getElementById("admStatAttendance").textContent = (db.attendance || []).length;
+      document.getElementById("admStatNotices").textContent = (db.notices || []).length;
+
+      const tbody = document.getElementById("admRecentStudentsBody");
+      tbody.innerHTML = (db.students || []).map(s => `
+        <tr>
+          <td><b>${s.id}</b></td>
+          <td>${s.name}</td>
+          <td>${s.email}</td>
+          <td><span class="badge ${s.section === 'A' ? 'badge-blue' : 'badge-purple'}">Sec ${s.section}</span></td>
+          <td><span class="badge ${s.attendance >= 75 ? 'badge-green' : 'badge-red'}">${s.attendance}%</span></td>
+          <td><b>${parseFloat(s.cgpa).toFixed(2)}</b></td>
+        </tr>
+      `).join("");
+    });
+
+    function showAdminSection(sec) {
+      if (sec === 'students' || sec === 'courses' || sec === 'database') {
+        window.location.href = `Index.html#${sec}`;
+      }
+    }
+  </script>
+</body>
+</html>

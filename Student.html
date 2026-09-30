@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSC 114 - Student Academic Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Student Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-badge" style="background: linear-gradient(135deg, #059669, #10b981);">STU</div>
+        <div class="brand-info">
+          <h3>Student Portal</h3>
+          <span>CSC 114 Academic Space</span>
+        </div>
+      </div>
+
+      <div class="nav-section-title">Student Menu</div>
+      <nav class="nav-links">
+        <a href="Index.html" class="nav-btn">
+          <span>🏠 Unified Master Portal</span>
+        </a>
+        <button class="nav-btn active">
+          <span>🎓 My Academic Dashboard</span>
+        </button>
+        <a href="Admin.html" class="nav-btn">
+          <span>🛡️ Admin Panel View</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-snippet">
+          <div class="user-avatar" style="background: #059669;">R</div>
+          <div class="user-details">
+            <b id="stuSidebarName">Rahim Ahmed</b>
+            <span id="stuSidebarId">CSC114-001</span>
+          </div>
+        </div>
+        <a href="Index.html" class="logout-icon-btn" title="Back to Portal">↗️</a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title">
+            <h1 id="stuHeaderGreeting">Welcome, Rahim Ahmed</h1>
+            <p>Undergraduate Student • Department of CSE • 56th Batch</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <span class="badge badge-green">STUDENT ENROLLED</span>
+          <button class="theme-toggle-btn" onclick="toggleTheme()">🌓</button>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <!-- Banner -->
+        <div class="welcome-banner" style="background: linear-gradient(135deg, #065f46, #059669, #10b981);">
+          <div>
+            <span class="banner-badge">Semester 3 • Fall 2026</span>
+            <h2 id="stuBannerTitle">Hello, Rahim! 👋</h2>
+            <p>Your examination eligibility is <b style="color: #a7f3d0;">Confirmed</b>. You have maintained a compliant attendance record above 75% across all credit courses.</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-white" onclick="window.print()">🖨️ Print Transcript</button>
+          </div>
+        </div>
+
+        <!-- Student Key Academic Metrics -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <span>Cumulative CGPA</span>
+              <h3 id="stuCgpaDisplay" style="color: var(--primary);">3.78</h3>
+              <span class="stat-trend up">Grade Point Average</span>
+            </div>
+            <div class="stat-icon-box emerald">🏆</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <span>Overall Attendance</span>
+              <h3 id="stuAttDisplay" style="color: var(--success-text);">92%</h3>
+              <span class="stat-trend up">Eligible (>75%)</span>
+            </div>
+            <div class="stat-icon-box indigo">📅</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <span>Enrolled Courses</span>
+              <h3>5 Courses</h3>
+              <span class="stat-trend up">14 Credits</span>
+            </div>
+            <div class="stat-icon-box sky">📚</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <span>Pending Tasks</span>
+              <h3>1 Assignment</h3>
+              <span class="stat-trend up">Due Next Week</span>
+            </div>
+            <div class="stat-icon-box amber">📝</div>
+          </div>
+        </div>
+
+        <!-- Grades Transcript & Routine -->
+        <div class="dashboard-grid">
+          <div>
+            <!-- Official Transcript Card -->
+            <div class="card">
+              <div class="card-header">
+                <h3>My Academic Grade Card & Examination Marks</h3>
+                <span class="badge badge-purple">Official Record</span>
+              </div>
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Course</th>
+                      <th>Mid (30)</th>
+                      <th>Final (50)</th>
+                      <th>Quiz (20)</th>
+                      <th>Total</th>
+                      <th>Grade</th>
+                      <th>GPA</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stuResultsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Assignments -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Active Course Assignments</h3>
+                <a href="Index.html" class="btn btn-outline btn-sm">Submit via Portal →</a>
+              </div>
+              <div id="stuAssignmentsList"></div>
+            </div>
+          </div>
+
+          <!-- Routine & Notices -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <h3>My Weekly Schedule</h3>
+              </div>
+              <div id="stuRoutineList"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Recent Circulars</h3>
+              </div>
+              <div id="stuNoticesList"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const db = getDB();
+      const studentId = "CSC114-001";
+      const student = (db.students || []).find(s => s.id === studentId) || db.students[0];
+
+      if (student) {
+        document.getElementById("stuSidebarName").textContent = student.name;
+        document.getElementById("stuSidebarId").textContent = student.id;
+        document.getElementById("stuHeaderGreeting").textContent = `Welcome, ${student.name}`;
+        document.getElementById("stuBannerTitle").textContent = `Hello, ${student.name.split(' ')[0]}! 👋`;
+        document.getElementById("stuCgpaDisplay").textContent = parseFloat(student.cgpa).toFixed(2);
+        document.getElementById("stuAttDisplay").textContent = `${student.attendance}%`;
+      }
+
+      // Results
+      const results = (db.results || []).filter(r => r.studentId === (student ? student.id : studentId));
+      const rBody = document.getElementById("stuResultsTableBody");
+      rBody.innerHTML = results.map(r => `
+        <tr>
+          <td><b>${r.course}</b></td>
+          <td>${r.mid}</td>
+          <td>${r.final}</td>
+          <td>${r.quiz}</td>
+          <td><b>${r.total}</b></td>
+          <td><span class="badge ${r.grade.startsWith('A') ? 'badge-green' : 'badge-blue'}">${r.grade}</span></td>
+          <td><b>${parseFloat(r.gpa).toFixed(2)}</b></td>
+        </tr>
+      `).join("") || '<tr><td colspan="7">No results recorded.</td></tr>';
+
+      // Routine
+      const routine = (db.routine || []).slice(0, 4);
+      document.getElementById("stuRoutineList").innerHTML = routine.map(rc => `
+        <div class="routine-card" style="margin-bottom: 10px;">
+          <div class="routine-time">${rc.day} • ${rc.time}</div>
+          <div class="routine-title">${rc.course} - ${rc.name}</div>
+          <div class="routine-room">📍 ${rc.room} • 👨‍🏫 ${rc.teacher}</div>
+        </div>
+      `).join("");
+
+      // Notices
+      const notices = (db.notices || []).slice(0, 3);
+      document.getElementById("stuNoticesList").innerHTML = notices.map(n => `
+        <div class="notice-item">
+          <div class="notice-badge">📢</div>
+          <div class="notice-body">
+            <h4>${n.title}</h4>
+            <p>${n.message}</p>
+            <div class="notice-meta"><span>📅 ${n.date}</span></div>
+          </div>
+        </div>
+      `).join("");
+
+      // Assignments
+      const assignments = (db.assignments || []).slice(0, 2);
+      document.getElementById("stuAssignmentsList").innerHTML = assignments.map(a => `
+        <div style="background: var(--bg-input); padding: 14px; border-radius: var(--radius-md); margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between;">
+            <b>${a.title}</b>
+            <span class="badge badge-purple">${a.course}</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0;">${a.description}</p>
+          <div style="font-size: 12px; color: var(--text-muted);">Deadline: <b>${a.deadline}</b> • Max Marks: <b>${a.totalMarks}</b></div>
+        </div>
+      `).join("");
+    });
+  </script>
+</body>
+</html>

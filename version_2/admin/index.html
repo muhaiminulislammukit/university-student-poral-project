@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrative Council 2.0 | Central Command & Registry</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-theme">
+  <div class="app-shell">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-crest admin-brand-crest">🏛️</div>
+        <div class="brand-details">
+          <h2>ADMIN COUNCIL</h2>
+          <span class="badge admin-tag">Executive 2.0</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-category-label">University Governance</div>
+        
+        <a class="nav-link active" id="nav-overview" onclick="switchTab('overview')">
+          <span class="nav-icon">📊</span>
+          <span>Executive Overview</span>
+        </a>
+
+        <a class="nav-link" id="nav-students" onclick="switchTab('students')">
+          <span class="nav-icon">👥</span>
+          <span>Student Directory (CRUD)</span>
+        </a>
+
+        <a class="nav-link" id="nav-faculty" onclick="switchTab('faculty')">
+          <span class="nav-icon">👨‍🏫</span>
+          <span>Faculty & Staff</span>
+        </a>
+
+        <a class="nav-link" id="nav-courses" onclick="switchTab('courses')">
+          <span class="nav-icon">📚</span>
+          <span>Course Curriculum</span>
+        </a>
+
+        <a class="nav-link" id="nav-routine" onclick="switchTab('routine')">
+          <span class="nav-icon">⏰</span>
+          <span>Timetable Scheduler</span>
+        </a>
+
+        <div class="menu-category-label">System & Database</div>
+
+        <a class="nav-link" id="nav-notices" onclick="switchTab('notices')">
+          <span class="nav-icon">📢</span>
+          <span>University Notices</span>
+        </a>
+
+        <a class="nav-link" id="nav-database" onclick="switchTab('database')">
+          <span class="nav-icon">💾</span>
+          <span>Database Console</span>
+        </a>
+
+        <a class="nav-link" id="nav-audit" onclick="switchTab('audit')">
+          <span class="nav-icon">🛡️</span>
+          <span>System Audit Logs</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <img src="" class="user-avatar admin-avatar-img" alt="Admin Avatar">
+          <div class="user-info">
+            <div class="name admin-name-display">Loading...</div>
+            <div class="subtext admin-title-display">Dean & Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      
+      <!-- Topbar Header -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button id="mobileToggleBtn" class="btn btn-ghost" style="display: none; padding: 6px 10px;">☰</button>
+          <div class="topbar-title">
+            <h1>University Administrative Council Control Room</h1>
+            <p>Office of the Academic Registrar & Department of Computer Science & Engineering</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 12.5px; padding: 6px 12px;">
+            ● System Operational
+          </span>
+
+          <button class="btn btn-ghost" onclick="AuthV2.logoutAdmin()" title="Sign Out of Admin Portal">
+            <span>Sign Out</span> ➔
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewport Content Area -->
+      <div class="app-content">
+
+        <!-- Tab 1: Overview -->
+        <section id="tab-overview" class="tab-content active">
+          <div class="glass-card" style="background: linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); border-color: rgba(245, 158, 11, 0.3); padding: 30px;">
+            <h2>Welcome to the Executive Console, <span class="admin-name-display">Administrator</span></h2>
+            <p style="color: var(--color-slate-300); font-size: 14px; margin-top: 6px; max-width: 720px;">
+              Central control point for managing undergraduate admissions, faculty profiles, curriculum allocations, timetable scheduling, dynamic MySQL database generation, and university-wide audit logs.
+            </p>
+          </div>
+
+          <!-- KPI Metric Grid -->
+          <div class="metric-grid" id="adminOverviewGrid" style="margin-top: 24px;"></div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 28px;">
+            <div class="glass-card">
+              <h3 style="margin-bottom: 16px;">Quick Administrative Actions</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                <button class="btn btn-admin-primary" onclick="openAddStudentModal()">
+                  <span>➕</span> Admit New Student
+                </button>
+                <button class="btn btn-ghost" onclick="openAddFacultyModal()">
+                  <span>👨‍🏫</span> Register New Faculty
+                </button>
+                <button class="btn btn-ghost" onclick="openAddCourseModal()">
+                  <span>📚</span> Create Course Offering
+                </button>
+                <button class="btn btn-ghost" onclick="downloadLiveMySQLDump()">
+                  <span>💾</span> Download Live MySQL Dump
+                </button>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <h3 style="margin-bottom: 12px;">Database Engine Status</h3>
+              <p style="font-size: 13px; color: var(--color-slate-300); line-height: 1.5;">
+                Relational state engine active in localStorage with instantaneous cross-tab synchronization. Download full MySQL 8.0 DDL/DML dump anytime.
+              </p>
+              <div style="margin-top: 14px;">
+                <button class="btn btn-sm btn-admin-primary" onclick="switchTab('database')">
+                  Open DB Console ➔
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 2: Student Directory CRUD -->
+        <section id="tab-students" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Undergraduate Student Registry (Full CRUD)</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Admit, update, search, filter, and inspect detailed student academic dossiers.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-ghost" onclick="exportStudentsCSV()">
+                <span>📥</span> Export to CSV
+              </button>
+              <button class="btn btn-admin-primary" onclick="openAddStudentModal()">
+                <span>➕</span> Admit Student
+              </button>
+            </div>
+          </div>
+
+          <!-- Filters Bar -->
+          <div class="glass-card" style="padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 240px;">
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="🔍 Search student by Name, Student ID, Email or Phone..." 
+                oninput="handleStudentSearchInput(this)"
+              >
+            </div>
+
+            <div style="width: 160px;">
+              <select class="form-control" onchange="handleStudentSectionFilter(this)">
+                <option value="all">All Sections</option>
+                <option value="A">Section A</option>
+                <option value="B">Section B</option>
+              </select>
+            </div>
+
+            <div style="width: 160px;">
+              <select class="form-control" onchange="handleStudentStatusFilter(this)">
+                <option value="all">All Statuses</option>
+                <option value="Active">Active Standing</option>
+                <option value="Warning">Disbarment Warning</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Students Table -->
+          <div class="glass-card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student Name & Email</th>
+                  <th>Student ID</th>
+                  <th>Section</th>
+                  <th>CGPA</th>
+                  <th>Attendance</th>
+                  <th>Academic Standing</th>
+                  <th style="text-align: right;">Manage</th>
+                </tr>
+              </thead>
+              <tbody id="adminStudentsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 3: Faculty Registry -->
+        <section id="tab-faculty" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Faculty Members & Instructors</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Manage university faculty accounts, academic designations, and course assignments.</p>
+            </div>
+            <button class="btn btn-admin-primary" onclick="openAddFacultyModal()">
+              <span>➕</span> Register Faculty Member
+            </button>
+          </div>
+
+          <div class="glass-card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Faculty Name & Title</th>
+                  <th>Official Email</th>
+                  <th>Department</th>
+                  <th>Contact Phone</th>
+                  <th>Assigned Courses</th>
+                </tr>
+              </thead>
+              <tbody id="adminFacultyTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 4: Course Curriculum -->
+        <section id="tab-courses" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Department Curriculum Catalog</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Accredited academic courses, syllabus outlines, and laboratory space allocations.</p>
+            </div>
+            <button class="btn btn-admin-primary" onclick="openAddCourseModal()">
+              <span>➕</span> Add New Course
+            </button>
+          </div>
+
+          <div class="glass-card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Name</th>
+                  <th>Credits</th>
+                  <th>Faculty Instructor</th>
+                  <th>Room / Lab</th>
+                  <th>Semester</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminCoursesTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 5: Master Timetable -->
+        <section id="tab-routine" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Master Class Timetable & Schedule</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Coordinate lecture slots and computer laboratory sessions across days of the week.</p>
+            </div>
+            <button class="btn btn-admin-primary" onclick="openAddRoutineModal()">
+              <span>➕</span> Add Routine Slot
+            </button>
+          </div>
+
+          <div class="glass-card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Time Interval</th>
+                  <th>Course Offering</th>
+                  <th>Instructor</th>
+                  <th>Classroom / Lab</th>
+                  <th>Section</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminRoutineTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 6: University Notices -->
+        <section id="tab-notices" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Official University Circulars & Broadcasts</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Publish executive announcements to all student and faculty portal dashboards.</p>
+            </div>
+            <button class="btn btn-admin-primary" onclick="openAddNoticeModal()">
+              <span>📢</span> Broadcast New Notice
+            </button>
+          </div>
+
+          <div id="adminNoticesList"></div>
+        </section>
+
+        <!-- Tab 7: Database Console & MySQL Exporter -->
+        <section id="tab-database" class="tab-content">
+          <div style="margin-bottom: 20px;">
+            <h2>Database Management Console & MySQL Generator</h2>
+            <p style="color: var(--color-slate-400); font-size: 13.5px;">Live relational storage engine with instant 1-Click MySQL 8.0+ DDL/DML compilation and JSON snapshot tools.</p>
+          </div>
+
+          <div class="db-console-card">
+            <div class="db-stats-row">
+              <div class="db-stat-box">
+                <div class="count" id="dbCountUsers">0</div>
+                <div class="label">Users Table</div>
+              </div>
+              <div class="db-stat-box">
+                <div class="count" id="dbCountStudents">0</div>
+                <div class="label">Students Table</div>
+              </div>
+              <div class="db-stat-box">
+                <div class="count" id="dbCountCourses">0</div>
+                <div class="label">Courses Table</div>
+              </div>
+              <div class="db-stat-box">
+                <div class="count" id="dbCountAttendance">0</div>
+                <div class="label">Attendance Sessions</div>
+              </div>
+              <div class="db-stat-box">
+                <div class="count" id="dbCountResults">0</div>
+                <div class="label">Gradebook Results</div>
+              </div>
+              <div class="db-stat-box">
+                <div class="count" id="dbCountAssignments">0</div>
+                <div class="label">Assignments</div>
+              </div>
+            </div>
+
+            <div class="db-actions-row">
+              <button class="btn btn-admin-primary" onclick="downloadLiveMySQLDump()">
+                <span>💾</span> 1-Click Download MySQL Dump (.sql)
+              </button>
+
+              <button class="btn btn-ghost" onclick="exportJSONBackup()">
+                <span>📦</span> Backup to JSON File
+              </button>
+
+              <label class="btn btn-ghost" style="cursor: pointer; margin-bottom: 0;">
+                <span>📂</span> Restore from JSON
+                <input type="file" accept=".json" style="display: none;" onchange="triggerImportJSONBackup(event)">
+              </label>
+
+              <button class="btn btn-danger" onclick="triggerFactoryReset()">
+                <span>⚠️</span> Factory Reset Database
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 8: Audit Logs -->
+        <section id="tab-audit" class="tab-content">
+          <div style="margin-bottom: 20px;">
+            <h2>System Audit Logs & Security Trail</h2>
+            <p style="color: var(--color-slate-400); font-size: 13.5px;">Chronological tracking of faculty grade submissions, attendance marks, student admissions, and policy updates.</p>
+          </div>
+
+          <div id="adminAuditLogsList" class="audit-list"></div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Student Modal -->
+  <div class="modal-overlay" id="studentFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="studentFormTitle">Admit New Student</h3>
+        <button class="modal-close-btn" onclick="closeStudentFormModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveStudentForm(event)">
+        <input type="hidden" id="studentEditModeId">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputId">Student ID Number</label>
+              <input type="text" id="studentFormInputId" class="form-control" required placeholder="e.g. CSC114-007">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputName">Full Name</label>
+              <input type="text" id="studentFormInputName" class="form-control" required placeholder="Student Name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputEmail">Institutional Email</label>
+              <input type="email" id="studentFormInputEmail" class="form-control" required placeholder="student@example.com">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputPhone">Contact Phone</label>
+              <input type="text" id="studentFormInputPhone" class="form-control" placeholder="+880 1711-000000">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputSection">Section Allocation</label>
+              <select id="studentFormInputSection" class="form-control">
+                <option value="A">Section A</option>
+                <option value="B">Section B</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputBlood">Blood Group</label>
+              <select id="studentFormInputBlood" class="form-control">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputGuardian">Guardian Name</label>
+              <input type="text" id="studentFormInputGuardian" class="form-control" placeholder="Guardian Name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="studentFormInputGuardianPhone">Guardian Phone</label>
+              <input type="text" id="studentFormInputGuardianPhone" class="form-control" placeholder="+880 1819-000000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="studentFormInputAddress">Residential Address</label>
+            <input type="text" id="studentFormInputAddress" class="form-control" placeholder="e.g. Dhanmondi, Dhaka">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeStudentFormModal()">Cancel</button>
+          <button type="submit" class="btn btn-admin-primary">Save Student Record ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Student Dossier Inspection Modal -->
+  <div class="modal-overlay" id="dossierModal">
+    <div class="modal-dialog" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3 id="dossierModalTitle">Student Academic Dossier</h3>
+        <button class="modal-close-btn" onclick="closeDossierModal()">×</button>
+      </div>
+      <div class="modal-body" id="dossierModalContent"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeDossierModal()">Close Dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Faculty Modal -->
+  <div class="modal-overlay" id="facultyFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Register New Academic Faculty</h3>
+        <button class="modal-close-btn" onclick="closeFacultyFormModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveFacultyForm(event)">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="facultyInputName">Faculty Full Name</label>
+              <input type="text" id="facultyInputName" class="form-control" required placeholder="e.g. Dr. John Doe">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="facultyInputUsername">Faculty Username</label>
+              <input type="text" id="facultyInputUsername" class="form-control" required placeholder="e.g. jdoe">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="facultyInputEmail">Official Email</label>
+              <input type="email" id="facultyInputEmail" class="form-control" required placeholder="jdoe@csc114.edu">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="facultyInputTitle">Academic Designation</label>
+              <input type="text" id="facultyInputTitle" class="form-control" required placeholder="e.g. Associate Professor">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="facultyInputDept">Department</label>
+              <input type="text" id="facultyInputDept" class="form-control" value="CSE" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="facultyInputPhone">Contact Phone</label>
+              <input type="text" id="facultyInputPhone" class="form-control" placeholder="+880 1819-000000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="facultyInputCourses">Assigned Courses (Comma separated)</label>
+            <input type="text" id="facultyInputCourses" class="form-control" placeholder="e.g. CSC 114, CSC 116" value="CSC 114">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeFacultyFormModal()">Cancel</button>
+          <button type="submit" class="btn btn-admin-primary">Register Faculty ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Course Modal -->
+  <div class="modal-overlay" id="courseFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Create New Course Offering</h3>
+        <button class="modal-close-btn" onclick="closeCourseFormModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveCourseForm(event)">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="courseInputCode">Course Code</label>
+              <input type="text" id="courseInputCode" class="form-control" placeholder="e.g. CSC 118" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="courseInputName">Course Title</label>
+              <input type="text" id="courseInputName" class="form-control" placeholder="Course Name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="courseInputCredit">Credit Hours</label>
+              <input type="number" id="courseInputCredit" class="form-control" value="3" min="1" max="6" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="courseInputTeacher">Lead Instructor</label>
+              <input type="text" id="courseInputTeacher" class="form-control" placeholder="Faculty Name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="courseInputRoom">Allocated Classroom / Lab</label>
+              <input type="text" id="courseInputRoom" class="form-control" placeholder="e.g. Room 305 / Lab 2" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="courseInputDesc">Course Description & Syllabus</label>
+            <textarea id="courseInputDesc" class="form-control" rows="3" placeholder="Syllabus topics and objectives..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeCourseFormModal()">Cancel</button>
+          <button type="submit" class="btn btn-admin-primary">Create Course ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Routine Modal -->
+  <div class="modal-overlay" id="routineFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Add Routine Schedule Slot</h3>
+        <button class="modal-close-btn" onclick="closeAddRoutineModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveRoutineSlot(event)">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="routineInputDay">Day of Week</label>
+              <select id="routineInputDay" class="form-control">
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="routineInputTime">Time Interval</label>
+              <input type="text" id="routineInputTime" class="form-control" placeholder="09:00 AM - 10:30 AM" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="routineInputCourse">Course</label>
+              <select id="routineInputCourse" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="routineInputRoom">Classroom / Lab</label>
+              <input type="text" id="routineInputRoom" class="form-control" placeholder="Room 301" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="routineInputSection">Target Section</label>
+              <input type="text" id="routineInputSection" class="form-control" value="Section A">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="routineInputType">Session Type</label>
+              <select id="routineInputType" class="form-control">
+                <option value="Lecture">Lecture</option>
+                <option value="Lab">Lab Session</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeAddRoutineModal()">Cancel</button>
+          <button type="submit" class="btn btn-admin-primary">Add Slot ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Notice Modal -->
+  <div class="modal-overlay" id="noticeFormModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Broadcast University Notice</h3>
+        <button class="modal-close-btn" onclick="closeNoticeFormModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveNoticeForm(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="noticeInputTitle">Notice Title</label>
+            <input type="text" id="noticeInputTitle" class="form-control" placeholder="Notice heading..." required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="noticeInputCategory">Category</label>
+              <select id="noticeInputCategory" class="form-control">
+                <option value="Academic">Academic</option>
+                <option value="Exam">Exam Circular</option>
+                <option value="Urgent">Urgent Circular</option>
+                <option value="Event">Event / Hackathon</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 12px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                <input type="checkbox" id="noticeInputPinned" style="width: 18px; height: 18px;">
+                <span>Pin notice to top</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="noticeInputMessage">Notice Circular Message</label>
+            <textarea id="noticeInputMessage" class="form-control" rows="5" placeholder="Write official text..." required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeNoticeFormModal()">Cancel</button>
+          <button type="submit" class="btn btn-admin-primary">Publish Circular ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="v2-toast-container" class="toast-container"></div>
+
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

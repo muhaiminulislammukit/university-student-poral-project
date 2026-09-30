@@ -1,0 +1,334 @@
+/* ==========================================================================
+   CSC 114 STUDENT PORTAL - VERSION 2.0 CUSTOM THEME & COMPONENTS
+   Vibrant Sapphire Blue, Indigo & Cyan Aesthetics
+   ========================================================================== */
+
+:root {
+  --portal-primary: #4f46e5;
+  --portal-primary-hover: #4338ca;
+  --portal-secondary: #06b6d4;
+  --portal-accent: #3b82f6;
+  --portal-glow: rgba(79, 70, 229, 0.35);
+  --portal-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  --portal-card-border: rgba(99, 102, 241, 0.2);
+}
+
+/* Background Atmosphere */
+body.student-theme {
+  background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+              #070b19;
+}
+
+/* Brand Accent */
+.student-brand-crest {
+  background: var(--portal-gradient);
+  color: var(--color-white);
+  box-shadow: 0 0 20px var(--portal-glow);
+}
+
+.student-tag {
+  background: rgba(79, 70, 229, 0.15);
+  color: #a5b4fc;
+  border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+/* Active Navigation */
+.student-theme .nav-link.active {
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.25) 0%, rgba(6, 182, 212, 0.12) 100%);
+  border-left: 3px solid #818cf8;
+  color: #ffffff;
+}
+
+.student-theme .nav-link:hover:not(.active) {
+  background: rgba(79, 70, 229, 0.1);
+  color: #c7d2fe;
+}
+
+/* Portal Specific Primary Buttons */
+.btn-student-primary {
+  background: var(--portal-gradient);
+  color: var(--color-white);
+  box-shadow: 0 4px 18px var(--portal-glow);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-student-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--portal-glow);
+}
+
+/* Academic Welcome Hero */
+.student-hero-banner {
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.student-hero-banner::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.student-hero-content h2 {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.student-hero-content p {
+  color: var(--color-slate-300);
+  font-size: 14px;
+  max-width: 580px;
+}
+
+.student-chips-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.student-hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 16px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: right;
+}
+
+.gpa-circle-val {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  color: #38bdf8;
+  line-height: 1;
+}
+
+/* Course Cards Grid */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.course-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.15);
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.course-code {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #818cf8;
+  font-size: 14px;
+  background: rgba(99, 102, 241, 0.12);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.course-name {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-white);
+}
+
+.course-instructor {
+  font-size: 13px;
+  color: var(--color-slate-400);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.course-meta-row {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--color-slate-400);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+/* Official Academic Transcript Card */
+.transcript-container {
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-xl);
+  font-family: var(--font-main);
+  position: relative;
+}
+
+.transcript-header {
+  text-align: center;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.transcript-header h2 {
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.transcript-header p {
+  color: #475569;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.transcript-student-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  background: #f8fafc;
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  font-size: 13px;
+}
+
+.transcript-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.transcript-table th {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.transcript-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #1e293b;
+}
+
+.transcript-summary-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 32px;
+  padding-top: 14px;
+  border-top: 2px solid #0f172a;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Attendance Progress Bar */
+.attendance-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.attendance-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.attendance-safe { background: linear-gradient(90deg, #10b981, #34d399); }
+.attendance-warning { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.attendance-danger { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+/* Notice Card */
+.notice-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all var(--transition-fast);
+}
+
+.notice-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateX(4px);
+}
+
+.notice-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.notice-body h4 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.notice-body p {
+  font-size: 13px;
+  color: var(--color-slate-300);
+  line-height: 1.5;
+}
+
+.notice-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--color-slate-400);
+}

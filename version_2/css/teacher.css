@@ -1,0 +1,210 @@
+/* ==========================================================================
+   CSC 114 TEACHER / FACULTY PORTAL - VERSION 2.0 CUSTOM THEME & COMPONENTS
+   Emerald Green, Deep Teal & Slate Aesthetics for Faculty Workflows
+   ========================================================================== */
+
+:root {
+  --teacher-primary: #059669;
+  --teacher-primary-hover: #047857;
+  --teacher-secondary: #0d9488;
+  --teacher-accent: #10b981;
+  --teacher-glow: rgba(16, 185, 129, 0.3);
+  --teacher-gradient: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+  --teacher-card-border: rgba(16, 185, 129, 0.2);
+}
+
+/* Background Atmosphere */
+body.teacher-theme {
+  background: radial-gradient(circle at 15% 15%, rgba(5, 150, 105, 0.14) 0%, transparent 42%),
+              radial-gradient(circle at 85% 85%, rgba(13, 148, 136, 0.12) 0%, transparent 45%),
+              #04100c;
+}
+
+/* Brand Accent */
+.teacher-brand-crest {
+  background: var(--teacher-gradient);
+  color: var(--color-white);
+  box-shadow: 0 0 20px var(--teacher-glow);
+}
+
+.teacher-tag {
+  background: rgba(5, 150, 105, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Active Navigation */
+.teacher-theme .nav-link.active {
+  background: linear-gradient(90deg, rgba(5, 150, 105, 0.25) 0%, rgba(13, 148, 136, 0.12) 100%);
+  border-left: 3px solid #34d399;
+  color: #ffffff;
+}
+
+.teacher-theme .nav-link:hover:not(.active) {
+  background: rgba(5, 150, 105, 0.1);
+  color: #a7f3d0;
+}
+
+/* Faculty Buttons */
+.btn-teacher-primary {
+  background: var(--teacher-gradient);
+  color: var(--color-white);
+  box-shadow: 0 4px 18px var(--teacher-glow);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-teacher-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--teacher-glow);
+}
+
+/* Roll Call Attendance Engine */
+.roll-call-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  margin-bottom: 20px;
+}
+
+.roll-call-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.roll-call-stats-strip {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* 3-State Attendance Selector Buttons */
+.att-toggle-group {
+  display: inline-flex;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.att-toggle-btn {
+  border: none;
+  background: transparent;
+  color: var(--color-slate-400);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.att-toggle-btn:hover {
+  color: var(--color-white);
+}
+
+.att-toggle-btn.active-present {
+  background: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.att-toggle-btn.active-late {
+  background: #f59e0b;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.att-toggle-btn.active-absent {
+  background: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+/* Live Gradebook Matrix */
+.grade-input-box {
+  width: 72px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.grade-input-box:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+  background: rgba(15, 23, 42, 0.95);
+  outline: none;
+}
+
+.grade-calc-badge {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+/* Submissions Drawer / Review Console */
+.submission-review-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all var(--transition-fast);
+}
+
+.submission-review-card:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.submission-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.submission-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(13, 148, 136, 0.15);
+  color: #2dd4bf;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  text-decoration: none;
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  margin-top: 8px;
+}
+
+.submission-link-pill:hover {
+  background: rgba(13, 148, 136, 0.3);
+}

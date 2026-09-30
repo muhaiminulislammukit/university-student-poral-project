@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Academic Portal 2.0 | Dashboard & Transcript</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/student.css">
+</head>
+<body class="student-theme">
+  <div class="app-shell">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-crest student-brand-crest">🎓</div>
+        <div class="brand-details">
+          <h2>STUDENT PORTAL</h2>
+          <span class="badge student-tag">Academic 2.0</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-category-label">Academic Workflows</div>
+        
+        <a class="nav-link active" id="nav-overview" onclick="switchTab('overview')">
+          <span class="nav-icon">📊</span>
+          <span>My Dashboard</span>
+        </a>
+
+        <a class="nav-link" id="nav-courses" onclick="switchTab('courses')">
+          <span class="nav-icon">📚</span>
+          <span>Enrolled Courses</span>
+        </a>
+
+        <a class="nav-link" id="nav-attendance" onclick="switchTab('attendance')">
+          <span class="nav-icon">📅</span>
+          <span>Attendance Tracker</span>
+        </a>
+
+        <a class="nav-link" id="nav-transcript" onclick="switchTab('transcript')">
+          <span class="nav-icon">📜</span>
+          <span>Results & Transcript</span>
+        </a>
+
+        <a class="nav-link" id="nav-assignments" onclick="switchTab('assignments')">
+          <span class="nav-icon">📝</span>
+          <span>Assignments & Work</span>
+        </a>
+
+        <a class="nav-link" id="nav-routine" onclick="switchTab('routine')">
+          <span class="nav-icon">⏰</span>
+          <span>Class Schedule</span>
+        </a>
+
+        <div class="menu-category-label">Campus & Account</div>
+
+        <a class="nav-link" id="nav-notices" onclick="switchTab('notices')">
+          <span class="nav-icon">📢</span>
+          <span>Department Notices</span>
+        </a>
+
+        <a class="nav-link" id="nav-profile" onclick="switchTab('profile')">
+          <span class="nav-icon">👤</span>
+          <span>Student Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <img src="" class="user-avatar student-avatar-img" alt="Student Avatar">
+          <div class="user-info">
+            <div class="name student-name-display">Loading...</div>
+            <div class="subtext student-id-display">ID: ...</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      
+      <!-- Topbar Header -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button id="mobileToggleBtn" class="btn btn-ghost" style="display: none; padding: 6px 10px;">☰</button>
+          <div class="topbar-title">
+            <h1>Undergraduate Student Dashboard</h1>
+            <p>Department of Computer Science & Engineering | Semester Fall 2026</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge badge-info" style="font-size: 12.5px; padding: 6px 12px;">
+              CGPA: <strong class="student-cgpa-display">0.00</strong>
+            </span>
+            <span class="badge badge-success student-att-display" style="font-size: 12.5px; padding: 6px 12px;">
+              90% Attendance
+            </span>
+          </div>
+
+          <button class="btn btn-ghost" onclick="AuthV2.logoutStudent()" title="Sign Out of Student Portal">
+            <span>Sign Out</span> ➔
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewport Content Area -->
+      <div class="app-content">
+
+        <!-- Tab 1: Overview -->
+        <section id="tab-overview" class="tab-content active">
+          <div class="student-hero-banner">
+            <div class="student-hero-content">
+              <h2>Welcome back, <span class="student-name-display">Student</span>!</h2>
+              <p>Here is your academic progress summary for the 56th Batch. Review your courses, upcoming classes, attendance eligibility, and assignment deadlines.</p>
+              
+              <div class="student-chips-row">
+                <span class="badge badge-neutral">🎓 B.Sc. in Computer Science</span>
+                <span class="badge badge-neutral student-section-display">Section A</span>
+                <span class="badge badge-neutral">📅 3rd Semester</span>
+                <span class="badge badge-success">● Active Academic Standing</span>
+              </div>
+            </div>
+
+            <div class="student-hero-badge">
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase; color: var(--color-slate-400);">Current Standing</div>
+                <div class="gpa-circle-val student-cgpa-display">3.82</div>
+                <div style="font-size: 11.5px; color: #a5b4fc;">Max 4.00 Scale</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview Stat Grid -->
+          <div class="metric-grid" id="overviewStatGrid" style="margin-top: 24px;"></div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 28px;">
+            <div class="glass-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3>Today's Scheduled Classes</h3>
+                <button class="btn btn-sm btn-ghost" onclick="switchTab('routine')">Full Routine ➔</button>
+              </div>
+              <div id="todayRoutinePreview"></div>
+            </div>
+
+            <div class="glass-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3>Quick Actions</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn btn-student-primary" style="justify-content: flex-start;" onclick="switchTab('transcript')">
+                  <span>📜</span> View & Print Grade Transcript
+                </button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;" onclick="switchTab('assignments')">
+                  <span>📝</span> Submit Course Assignments
+                </button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;" onclick="switchTab('attendance')">
+                  <span>📅</span> Check Attendance Record
+                </button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;" onclick="switchTab('notices')">
+                  <span>📢</span> Read Department Circulars
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 2: Enrolled Courses -->
+        <section id="tab-courses" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2>My Enrolled Courses & Syllabus</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">All courses registered for the Fall 2026 semester along with assigned faculty and lab spaces.</p>
+            </div>
+            <span class="badge badge-info" style="font-size: 13px;">6 Registered Courses</span>
+          </div>
+
+          <div class="course-grid" id="studentCoursesGrid"></div>
+        </section>
+
+        <!-- Tab 3: Attendance Tracker -->
+        <section id="tab-attendance" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Course Attendance Breakdown</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Live attendance status per subject. Minimum 75% attendance is required to sit for the final examinations.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <span class="badge badge-success">✓ ≥ 75% Eligible</span>
+              <span class="badge badge-danger">⚠ &lt; 75% Disbarment Warning</span>
+            </div>
+          </div>
+
+          <div id="studentAttendanceList"></div>
+        </section>
+
+        <!-- Tab 4: Results & Official Transcript -->
+        <section id="tab-transcript" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Official Academic Grade Transcript</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Verified grade sheet computed by faculty and approved by the Academic Examination Controller.</p>
+            </div>
+            <button class="btn btn-student-primary" onclick="printStudentTranscript()">
+              <span>🖨️</span> Print / Download Transcript (PDF)
+            </button>
+          </div>
+
+          <div id="transcriptContentWrap"></div>
+        </section>
+
+        <!-- Tab 5: Assignments -->
+        <section id="tab-assignments" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2>Course Assignments & Submissions</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Submit your project repository links, laboratory reports, and view teacher marks & feedback.</p>
+            </div>
+          </div>
+
+          <div id="studentAssignmentsList"></div>
+        </section>
+
+        <!-- Tab 6: Class Schedule -->
+        <section id="tab-routine" class="tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>Weekly Academic Class Routine</h2>
+              <p style="color: var(--color-slate-400); font-size: 13.5px;">Timetable of all lecture and lab sessions for Section A & B.</p>
+            </div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button class="btn btn-sm btn-ghost routine-filter-btn active" onclick="filterRoutineByDay('all', this)">All Days</button>
+              <button class="btn btn-sm btn-ghost routine-filter-btn" onclick="filterRoutineByDay('sunday', this)">Sunday</button>
+              <button class="btn btn-sm btn-ghost routine-filter-btn" onclick="filterRoutineByDay('monday', this)">Monday</button>
+              <button class="btn btn-sm btn-ghost routine-filter-btn" onclick="filterRoutineByDay('tuesday', this)">Tuesday</button>
+              <button class="btn btn-sm btn-ghost routine-filter-btn" onclick="filterRoutineByDay('wednesday', this)">Wednesday</button>
+              <button class="btn btn-sm btn-ghost routine-filter-btn" onclick="filterRoutineByDay('thursday', this)">Thursday</button>
+            </div>
+          </div>
+
+          <div class="glass-card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Class Time</th>
+                  <th>Course Code & Title</th>
+                  <th>Faculty Instructor</th>
+                  <th>Room / Lab</th>
+                  <th>Class Type</th>
+                </tr>
+              </thead>
+              <tbody id="studentRoutineTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 7: Department Notices -->
+        <section id="tab-notices" class="tab-content">
+          <div style="margin-bottom: 20px;">
+            <h2>Departmental Circulars & Notices</h2>
+            <p style="color: var(--color-slate-400); font-size: 13.5px;">Official announcements regarding exams, hackathons, lab access, and holiday schedules.</p>
+          </div>
+
+          <div id="studentNoticesList" style="display: flex; flex-direction: column; gap: 14px;"></div>
+        </section>
+
+        <!-- Tab 8: Profile & Settings -->
+        <section id="tab-profile" class="tab-content">
+          <div style="margin-bottom: 20px;">
+            <h2>Student Personal Dossier</h2>
+            <p style="color: var(--color-slate-400); font-size: 13.5px;">Manage your contact numbers, residential address, and emergency guardian details.</p>
+          </div>
+
+          <div class="glass-card" style="max-width: 800px;">
+            <form onsubmit="handleSaveStudentProfile(event)">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" id="profileStudentName" class="form-control" readonly disabled>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Student ID Number</label>
+                  <input type="text" id="profileStudentId" class="form-control" readonly disabled>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Registered Institutional Email</label>
+                  <input type="email" id="profileStudentEmail" class="form-control" readonly disabled>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Contact Phone</label>
+                  <input type="text" id="profileStudentPhone" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Academic Section</label>
+                  <input type="text" id="profileStudentSection" class="form-control" readonly disabled>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Batch</label>
+                  <input type="text" id="profileStudentBatch" class="form-control" readonly disabled>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Blood Group</label>
+                  <input type="text" id="profileStudentBlood" class="form-control" placeholder="e.g. A+, O+">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Guardian Name</label>
+                  <input type="text" id="profileGuardianName" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Guardian Emergency Phone</label>
+                  <input type="text" id="profileGuardianPhone" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Present Residential Address</label>
+                <textarea id="profileStudentAddress" class="form-control" rows="3"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-student-primary" style="margin-top: 10px;">
+                Save Profile Changes ➔
+              </button>
+            </form>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Submit Assignment Modal -->
+  <div class="modal-overlay" id="submissionModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h3 id="submitModalTitle">Submit Assignment</h3>
+          <div style="font-size: 12px; color: #a5b4fc;" id="submitModalCourse">Course Name</div>
+        </div>
+        <button class="modal-close-btn" onclick="closeSubmitModal()">×</button>
+      </div>
+
+      <form onsubmit="handleSaveSubmission(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="submitSolutionLink">Solution Repository Link or File URL</label>
+            <input 
+              type="text" 
+              id="submitSolutionLink" 
+              class="form-control" 
+              placeholder="e.g. https://github.com/my-user/my-repo or cloud storage link" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="submitNotes">Student Submission Comments / Notes</label>
+            <textarea 
+              id="submitNotes" 
+              class="form-control" 
+              rows="4" 
+              placeholder="Explain how you tested the code, any special setup commands, or notes for the professor."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeSubmitModal()">Cancel</button>
+          <button type="submit" class="btn btn-student-primary">Confirm & Submit Solution ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="v2-toast-container" class="toast-container"></div>
+
+  <script src="../js/store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/student.js"></script>
+</body>
+</html>

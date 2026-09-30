@@ -1,0 +1,149 @@
+/* ==========================================================================
+   CSC 114 ADMINISTRATIVE COUNCIL PORTAL - VERSION 2.0 CUSTOM THEME
+   Imperial Royal Navy, Obsidian & Amber Gold Aesthetics
+   ========================================================================== */
+
+:root {
+  --admin-primary: #1e1b4b;
+  --admin-primary-hover: #2e1065;
+  --admin-accent: #f59e0b;
+  --admin-accent-hover: #d97706;
+  --admin-glow: rgba(245, 158, 11, 0.3);
+  --admin-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+  --admin-gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --admin-card-border: rgba(245, 158, 11, 0.2);
+}
+
+/* Background Atmosphere */
+body.admin-theme {
+  background: radial-gradient(circle at 10% 10%, rgba(49, 46, 129, 0.25) 0%, transparent 45%),
+              radial-gradient(circle at 90% 90%, rgba(245, 158, 11, 0.1) 0%, transparent 40%),
+              #070712;
+}
+
+/* Brand Accent */
+.admin-brand-crest {
+  background: var(--admin-gold-gradient);
+  color: #0f172a;
+  box-shadow: 0 0 20px var(--admin-glow);
+}
+
+.admin-tag {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Active Navigation */
+.admin-theme .nav-link.active {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(49, 46, 129, 0.25) 100%);
+  border-left: 3px solid #f59e0b;
+  color: #ffffff;
+}
+
+.admin-theme .nav-link:hover:not(.active) {
+  background: rgba(245, 158, 11, 0.08);
+  color: #fde68a;
+}
+
+/* Admin Buttons */
+.btn-admin-primary {
+  background: var(--admin-gold-gradient);
+  color: #0f172a;
+  box-shadow: 0 4px 18px var(--admin-glow);
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-admin-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--admin-glow);
+  color: #000000;
+}
+
+/* Database Terminal & Console Cards */
+.db-console-card {
+  background: #090d16;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.db-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.db-stat-box {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.db-stat-box .count {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 800;
+  color: #f59e0b;
+}
+
+.db-stat-box .label {
+  font-size: 11px;
+  color: var(--color-slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.db-actions-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Audit Log List */
+.audit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.audit-item {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all var(--transition-fast);
+}
+
+.audit-item:hover {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.audit-actor {
+  font-weight: 700;
+  color: #fbbf24;
+  font-size: 13.5px;
+}
+
+.audit-action {
+  font-size: 13px;
+  color: var(--color-slate-300);
+}
+
+.audit-time {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-slate-500);
+  white-space: nowrap;
+}
